@@ -1,7 +1,9 @@
 package cn.damon.session;
 
 import cn.damon.utils.CookieBasedSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+@Component
 public class CasFilter implements Filter {
     public static final String USER_INFO = "user";
 
     private RedisTemplate redisTemplate;
+
+    @Value(value = "${cas.serverUrl}")
+    private String serverUrl;
 
     public void setRedisTemplate(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -52,7 +58,7 @@ public class CasFilter implements Filter {
             if (null == ticket || null == redisTemplate.opsForValue().get(ticket)){
                 HttpServletResponse response = (HttpServletResponse)servletResponse;
                 //redirect to login page
-                response.sendRedirect("http://localhost:8090/toLogin?url="+request.getRequestURL().toString());
+                response.sendRedirect(serverUrl+"?url="+request.getRequestURL().toString());
                 return ;
             }
 

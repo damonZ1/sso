@@ -17,6 +17,8 @@ spring:
         additional-paths: src/main/java     #listen package
 swagger:
   host: local.dev.com
+cas:
+  serverUrl: http://localhost:8090/toLogin
 
 
 
