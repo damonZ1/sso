@@ -1,0 +1,20 @@
+#启动: nohup java   -Dspring.profiles.active=dev -jar synchronius-1.0.jar >  log.erp 2>&1 &
+server:
+  port: 8092
+  compression:
+    enabled: true
+  connection-timeout: 3000
+spring:
+  redis:
+      host: 127.0.0.1
+      port: 6779
+      password: cr2018
+  devtools:
+      restart:
+        enabled: true                       #open
+        additional-paths: src/main/java     #listen package
+swagger:
+  host: local.dev.com
+
+
+
